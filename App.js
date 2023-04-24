@@ -1,4 +1,4 @@
-import { StyleSheet,  TextInput, View, Button, Text, FlatList} from 'react-native';
+import { StyleSheet, TextInput, View, Button, Text, FlatList } from 'react-native';
 import { useState } from 'react';
 
 
@@ -13,19 +13,19 @@ export default function App() {
 
   const addDirection = () => {
     setDirections(prevState => [
-      ...prevState, 
+      ...prevState,
       { name: directionHome, id: Math.random().toString() },
     ]);
     setDirectionHome("");
   };
 
-  const renderItem = ({ direction }) => (
+  const renderItem = ({ item }) => (
     <View style={styles.renderItem}>
-      <Text>{direction.name}</Text>
-      <Button 
-      title="X" 
-      onPress={() => console.log("Aqui se abrira un modal")}
-      color={"red"}
+      <Text>{item.name}</Text>
+      <Button
+        title="X"
+        onPress={() => console.log("Aqui se abrira un modal")}
+        color={"red"}
       />
     </View>
   )
@@ -36,25 +36,25 @@ export default function App() {
       <View style={styles.inputContainer}>
         <Text style={styles.titleContainer}> My Directions </Text>
         <View style={styles.addItemContainer}>
-          <TextInput 
-            placeholder='Escriba la dirección de su hogar' 
+          <TextInput
+            placeholder='Escriba la dirección de su hogar'
             style={styles.TextInput}
             onChangeText={onHandleChangeDirection}
             value={directionHome}
           />
-          
-          <Button 
-          title="Add direction" 
-          onPress={addDirection}/>
+
+          <Button
+            title="Add"
+            onPress={addDirection} />
         </View>
-    
+
       </View>
-      
+
       <View styles={styles.listContainer}>
-        <FlatList 
-        data={directions}
-        renderItem={renderItem}
-        keyExtractor={direction => direction.id}
+        <FlatList
+          data={directions}
+          renderItem={renderItem}
+          keyExtractor={direction => direction.id}
         />
       </View>
     </View>
@@ -70,22 +70,23 @@ const styles = StyleSheet.create({
 
   titleContainer: {
     margin: 10,
-    fontSize: 40,
+    fontSize: 30,
     fontWeight: "500",
     color: "#1E283C",
+    textAlign: "center"
   },
 
   inputContainer: {
-      height: 200,
-      paddingHorizontal: 30,
-      paddingTop: 80, 
+    height: 200,
+    paddingHorizontal: 30,
+    paddingTop: 80,
   },
 
   addItemContainer: {
-      flexDirection: "row",
-      justifyContent:"space-between",
-      alignItems: "center",
-      marginTop: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 10,
   },
 
   listContainer: {
@@ -97,23 +98,25 @@ const styles = StyleSheet.create({
 
 
   TextInput: {
-    borderBottomColor: "black", 
+    borderBottomColor: "black",
     borderBottomWidth: 2,
     width: 200,
   },
 
-  remderItem: {
-    height: 60, 
+  renderItem: {
+    alignItems: "center",
+    height: 60,
+    width: 300,
     flexDirection: "row",
-    marginBottom: 25, 
+    marginBottom: 10,
     backgroundColor: "white",
     borderRadius: 10,
     padding: 10,
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
     shadowColor: "black",
-    shadowOpacity: 0.3,
-    shadowOffset: {width: 0, height: 1},
-    elevation: 3,
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 1 },
+    elevation: 2,
   }
-  });
+});
