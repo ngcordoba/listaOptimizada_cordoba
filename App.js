@@ -1,11 +1,16 @@
 import { StyleSheet, TextInput, View, Button, Text, FlatList } from 'react-native';
+import Modal from './src/components/Modal'
 import { useState } from 'react';
 
 
 export default function App() {
 
-  const [directionHome, setDirectionHome] = useState("")
-  const [directions, setDirections] = useState([])
+  const [directionHome, setDirectionHome] = useState("");
+  const [directions, setDirections] = useState([]);
+  const [itemSelected, setItemSelected] = useState({})
+  const [modalVisible, setModalVisible] = useState(false);
+
+
 
   const onHandleChangeDirection = text => {
     setDirectionHome(text)
@@ -19,12 +24,22 @@ export default function App() {
     setDirectionHome("");
   };
 
+  const onHandleModal = item => {
+    setItemSelected(item)
+    setModalVisible(true)
+  };
+
+  const onHandleDelete = item => {
+    setDirections(prevState => prevState.filter(element => element.name !== item.name))
+    setModalVisible(!modalVisible)
+  };
+
   const renderItem = ({ item }) => (
     <View style={styles.renderItem}>
       <Text>{item.name}</Text>
       <Button
         title="X"
-        onPress={() => console.log("Aqui se abrira un modal")}
+        onPress={() => onHandleModal(item)}
         color={"red"}
       />
     </View>
@@ -57,6 +72,12 @@ export default function App() {
           keyExtractor={direction => direction.id}
         />
       </View>
+
+      <Modal
+        isVisible={modalVisible}
+        actionDeleteItem={() => onHandleDelete(itemSelected)}
+        itemSelected={itemSelected}
+      />
     </View>
   );
 }
@@ -113,7 +134,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     justifyContent: "space-between",
-    alignItems: "center",
     shadowColor: "black",
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 1 },
