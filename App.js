@@ -1,4 +1,5 @@
-import { StyleSheet, TextInput, View, Button, Text, FlatList } from 'react-native';
+import { StyleSheet, TextInput, View, Button, Text, FlatList, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Modal from './src/components/Modal'
 import { useState } from 'react';
 
@@ -37,11 +38,13 @@ export default function App() {
   const renderItem = ({ item }) => (
     <View style={styles.renderItem}>
       <Text>{item.name}</Text>
-      <Button
-        title="X"
-        onPress={() => onHandleModal(item)}
-        color={"red"}
-      />
+      <TouchableOpacity title='Eliminar' onPress={() => onHandleModal(item)}>
+        <Icon
+          name='delete'
+          size={30}
+          color="red"
+        />
+      </TouchableOpacity>
     </View>
   )
 
@@ -51,16 +54,23 @@ export default function App() {
       <View style={styles.inputContainer}>
         <Text style={styles.titleContainer}> My Directions </Text>
         <View style={styles.addItemContainer}>
+          <Icon
+            name='location-pin'
+            size={26}
+            style={styles.IconLocation}
+          />
           <TextInput
-            placeholder='Escriba la dirección de su hogar'
-            style={styles.TextInput}
+            placeholder='Agregue una dirección'
             onChangeText={onHandleChangeDirection}
             value={directionHome}
           />
 
-          <Button
-            title="Add"
-            onPress={addDirection} />
+          <View style={styles.addButtonContainer}>
+            <Icon
+              name='add'
+              size={30}
+              onPress={addDirection} />
+          </View>
         </View>
 
       </View>
@@ -101,27 +111,51 @@ const styles = StyleSheet.create({
     height: 200,
     paddingHorizontal: 30,
     paddingTop: 80,
+    margin: 10
+  },
+
+  IconLocation: {
+    marginLeft: 20,
   },
 
   addItemContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 10,
+    height: 55,
+    backgroundColor: "white",
+    borderRadius: 10,
+  },
+
+  addButtonContainer: {
+    alignSelf: 'flex-end',
+    borderRadius: 10,
+    width: 55,
+    height: 55,
+    justifyContent: 'center',
+    alignItems: 'center',
+
   },
 
   listContainer: {
     flex: 1,
-    marginHorizontal: 30,
-    marginTop: 20,
-    padding: 3,
+    marginHorizontal: 20,
+    marginTop: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
 
 
   TextInput: {
-    borderBottomColor: "black",
-    borderBottomWidth: 2,
-    width: 200,
+    height: 50,
+    width: 220,
+    borderRadius: 10,
+    alignItems: "center",
+    shadowColor: "black",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 1 },
+    elevation: 2,
+
   },
 
   renderItem: {

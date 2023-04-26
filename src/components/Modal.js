@@ -7,7 +7,7 @@ const Modal = ({ isVisible, actionDeleteItem, itemSelected }) => {
             <View style={styles.modalContainer}>
                 <View style={styles.modalStyle}>
                     <Text style={styles.modalTextStyle}>¿Estas seguro que deseas borrar esta dirección?</Text>
-                    <Button title="Eliminar" color={"red"} onPress={() => actionDeleteItem()} />
+                    <Button title="Eliminar" color={"red"} fontWeight={500} onPress={() => actionDeleteItem()} />
 
                 </View>
             </View>
